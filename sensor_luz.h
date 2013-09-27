@@ -1,3 +1,6 @@
+#pragma once
+namespace hw
+{
 namespace sensor
 {
 /**
@@ -11,4 +14,5 @@ public:
 	 */
 	void actualizar();
 };
+}
 }

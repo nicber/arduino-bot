@@ -1,9 +1,11 @@
-#include "sensores/sensor_luz.h"
-
+#include "sensor_luz.h"
+namespace hw
+{
 namespace sensor
 {
 void sensor_luz::actualizar()
 {
 	
+}
 }
 }

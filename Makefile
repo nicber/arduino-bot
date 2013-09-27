@@ -242,7 +242,7 @@ endif
 # automatically determine sources and targeet
 TARGET := $(basename $(INOFILE))
 SOURCES := $(INOFILE) \
-	$(wildcard *.c *.cc *.cpp *.C) \
+	$(wildcard *.cpp *.c *.C) \
 	$(wildcard $(addprefix util/, *.c *.cc *.cpp *.C)) \
 	$(wildcard $(addprefix utility/, *.c *.cc *.cpp *.C))
 
@@ -289,6 +289,7 @@ endif
 endif
 
 # flags
+CPPFLAGS += -std=c++11
 CPPFLAGS += -Os -Wall -fno-exceptions -ffunction-sections -fdata-sections
 CPPFLAGS += -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums
 CPPFLAGS += -mmcu=$(BOARD_BUILD_MCU)
