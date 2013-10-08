@@ -14,6 +14,7 @@ void logger::escribir_serial()
 	for(auto& str : stream)
 	{
 		Serial.write(str);
+		delete[] str;
 	}
 	Serial.write(0);
 	
@@ -29,19 +30,25 @@ logger::~logger()
 logger& operator<<(logger& log, double n)
 {
 	char* str = util::number_str(n, 2);
-	return log << str;
+	log << str;
+	delete[] str;
+	return log;
 }
 
 logger& operator<<(logger& log, long long n)
 {
 	char* str = util::number_str(n);
-	return log << str;
+	log << str;
+	delete[] str;
+	return log;
 }
 
 logger& operator<<(logger& log, unsigned long long n)
 {
 	char* str = util::number_str(n);
-	return log << str;
+	log << str;
+	delete[] str;
+	return log;
 }
 
 logger& operator<<(logger& log, const char * source)
