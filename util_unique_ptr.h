@@ -1,5 +1,4 @@
 #pragma once
-#include <iostream>
 
 namespace util
 {
@@ -35,6 +34,7 @@ public:
 	unique_ptr<T>& operator=(unique_ptr<T> u_ptr)
 	{
 		swap(*this, u_ptr);
+		return *this;
 	}
 	
 	T& operator*() const
@@ -42,9 +42,14 @@ public:
 		return *ptr_;
 	}
 	
-	T& operator->() const
+	T* operator->() const
 	{
-		return *ptr_;
+		return ptr_;
+	}
+	
+	operator bool() const
+	{
+		return ptr_;
 	}
 };
 
@@ -54,7 +59,9 @@ public:
 template <typename T>
 void swap(unique_ptr<T>& lhs, unique_ptr<T>& rhs)
 {
-	std::swap(lhs.ptr_, rhs.ptr_);
+	T* temp = lhs.ptr_;
+	lhs.ptr_ = rhs.ptr_;
+	rhs.ptr_ = temp;
 }
 
 /**
