@@ -1,5 +1,4 @@
 #pragma once
-#include <list>
 #include "util_move.h"
 
 namespace util
@@ -11,9 +10,14 @@ class vector2
 	D y_;
 	
 public:
-	vector2(D x, D y, D z):
+	vector2(D x, D y):
 	x_(util::move(x)),
 	y_(util::move(y))
+	{}
+	
+	vector2():
+	x_(0),
+	y_(0)
 	{}
 	
 	D x() const
@@ -34,7 +38,7 @@ public:
 	void y(D y)
 	{
 		y_ = util::move(y);
-	}gi
+	}
 };
 typedef vector2<float> vec2;
 
@@ -47,9 +51,9 @@ class vector3
 	
 public:
 	vector3(D x, D y, D z):
-	x_(std::move(x)),
-	y_(std::move(y)),
-	z_(std::move(z))
+	x_(util::move(x)),
+	y_(util::move(y)),
+	z_(util::move(z))
 	{}
 };
 
