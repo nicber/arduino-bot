@@ -2,6 +2,9 @@
 
 namespace hw
 {
+const float motores::sep_lados = 160;
+const float motores::mm_ms = 0.5;
+
 void motores::actualizar()
 {
 
@@ -26,4 +29,8 @@ void motores::set_velocidad(motores::lado l, float v)
 	}
 }
 
+float motores::get_velocidad(motores::lado lad) const
+{
+	return lad == lado::der ? vel_der : vel_izq;
+}
 }
