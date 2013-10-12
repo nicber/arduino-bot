@@ -25,6 +25,11 @@ public:
 	
 	unique_ptr(unique_ptr<T>& u_ptr) = delete;
 	
+	template <typename U>
+	unique_ptr(unique_ptr<U>&& u_ptr)
+	: unique_ptr(u_ptr.release())
+	{}
+	
 	unique_ptr(unique_ptr<T>&& u_ptr)
 	: unique_ptr()
 	{
@@ -35,6 +40,13 @@ public:
 	{
 		swap(*this, u_ptr);
 		return *this;
+	}
+	
+	T* release()
+	{
+		auto ptr = ptr_;
+		ptr_ = nullptr;
+		return ptr;
 	}
 	
 	T& operator*() const
