@@ -1,4 +1,4 @@
-#praga once
+#pragma once
 #include <list>
 
 namespace util
