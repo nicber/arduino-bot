@@ -18,7 +18,7 @@ namespace
 	char* escribir_numero(N n)
 	{
 		size_t digitos = num_digitos(n);
-		char* str = (char*)malloc(digitos += (n < 0 ? 2 : 1) /*terminador y signo -*/);
+		char* str = new char[digitos += (n < 0 ? 2 : 1) /*terminador y signo -*/];
 		str[digitos] = 0;
 
 		if(n < 0)
