@@ -45,18 +45,18 @@ vel_mot bezier_mov::actualizar_imp(util::micros_t)
 		return {1, 1};
 	}
 	
-	vec2 pos_actual(util::bezier(4, 100/float(paso_), p_));
+	vec2 pos_actual(util::bezier(100/float(paso_), p_, 4));
 	float pos_act_ang;
 	{
-		vec2 ayuda_tan(util::bezier(4, 1000000/float(1+(int(paso_)*1000)), p_));
+		vec2 ayuda_tan(util::bezier(1000000/float(1+(int(paso_)*1000)), p_, 4));
 		vec2 dif(ayuda_tan - pos_actual);
 		pos_act_ang = atan2(dif.y(), dif.x());
 	}
 	
-	vec2 sig_pos(util::bezier(4, 100/float(++paso_), p_));
+	vec2 sig_pos(util::bezier(100/float(++paso_), p_, 4));
 	float sig_pos_ang;
 	{
-		vec2 ayuda_tan(util::bezier(4, 1000000/float(1+(int(paso_)*1000)), p_));
+		vec2 ayuda_tan(util::bezier(1000000/float(1+(int(paso_)*1000)), p_, 4));
 		vec2 dif(ayuda_tan - sig_pos);
 		sig_pos_ang = atan2(dif.y(), dif.x());
 	}

@@ -31,19 +31,36 @@ public:
 		return y_;
 	}
 	
+	/**
+	 * Setter para x.
+	 */
 	void x(D x)
 	{
 		x_ = util::move(x);
 	}
 	
+	/**
+	 * Setter para y.
+	 */
 	void y(D y)
 	{
 		y_ = util::move(y);
 	}
 	
+	/**
+	 * Devuelve la longitud del vector.
+	 */
 	D distance() const
 	{
 		return sqrt(x_*x_ + y_*y_);
+	}
+	
+	/**
+	 * Devuelve la longitud al cuadrado del vector
+	 */
+	D distance_sq() const
+	{
+		return x_*x_ + y_*y_;
 	}
 };
 typedef vector2<float> vec2;
@@ -103,21 +120,4 @@ vector2<D> operator/(vector2<D> lhs, D n)
 {
 	return lhs /= n;
 }
-
-template <typename D>
-class vector3
-{
-	D x_;
-	D y_;
-	D z_;
-	
-public:
-	vector3(D x, D y, D z):
-	x_(util::move(x)),
-	y_(util::move(y)),
-	z_(util::move(z))
-	{}
-};
-
-typedef vector3<float> vec3;
 }

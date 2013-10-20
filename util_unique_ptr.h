@@ -14,6 +14,7 @@ class unique_ptr
 public:
 	unique_ptr()
 	{}
+	
 	unique_ptr(T* ptr)
 	: ptr_(ptr)
 	{}
@@ -41,7 +42,10 @@ public:
 		swap(*this, u_ptr);
 		return *this;
 	}
-	
+
+	/**
+	 * Devuelve el puntero almacenado y deja de administrarlo.
+	 */
 	T* release()
 	{
 		auto ptr = ptr_;
@@ -49,16 +53,25 @@ public:
 		return ptr;
 	}
 	
+	/**
+	 * Operador para dereferenciar.
+	 */
 	T& operator*() const
 	{
 		return *ptr_;
 	}
 	
+	/**
+	 * Operador para dereferenciar.
+	 */
 	T* operator->() const
 	{
 		return ptr_;
 	}
 	
+	/**
+	 * Devuelve si es válido.
+	 */
 	operator bool() const
 	{
 		return ptr_;
