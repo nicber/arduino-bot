@@ -5,4 +5,4 @@
 /**
  * Variable global para acceder componentes.
  */
-core::cont_comp<hw::sensor::sensor_luz, hw::motores> componentes;
+core::cont_comp<hw::sensor::sensor_luz, movimiento::movimiento, hw::motores> componentes;
