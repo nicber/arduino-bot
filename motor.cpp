@@ -3,11 +3,11 @@
 namespace hw
 {
 const float motores::sep_lados = 160;
-const float motores::mm_ms = 0.5;
+const float motores::mm_us = 0.5;
 
 void motores::actualizar()
 {
-
+	//TODO
 }
 
 void motores::set_velocidad(motores::lado l, float v)

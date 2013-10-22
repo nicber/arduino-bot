@@ -15,6 +15,9 @@ float izq, der;
 	: izq(0), der(0)
 	{}
 	
+	/**
+	 * Izquierda y derecha respectivamente.
+	 */
 	vel_mot(float, float);
 };
 

@@ -11,8 +11,8 @@ class motores
 	float vel_der = 0;
 	float vel_izq = 0;
 public:
-	static const float sep_lados; ///< Separación entre los centros de las ruedas en mm.
-	static const float mm_ms; ///< Máxima velocidad en mm/ms
+	static const float sep_lados; ///< Separación entre los centros de las ruedas al centro en mm.
+	static const float mm_us; ///< Máxima velocidad en mm/us
 	enum class lado
 	{
 		der,

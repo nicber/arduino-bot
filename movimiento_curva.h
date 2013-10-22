@@ -8,6 +8,9 @@ namespace movimiento
  */
 class mov_curva_circ : public sub_mov
 {
+	util::micros_t tiempo_restante_;
+	float vel_der_;
+	float vel_izq_;
 protected:
 	vel_mot actualizar_imp(util::micros_t) override;
 public:
