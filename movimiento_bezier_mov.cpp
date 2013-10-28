@@ -9,6 +9,10 @@ using util::vec2;
 
 namespace 
 {
+/**
+ * Devuelve el punto de interseccion entre dos rectas
+ * que pasan por un punto cada una con cierta tangente.
+ */
 vec2 intersec(const vec2& p0, float tan0, const vec2& p1, float tan1)
 {
 	vec2 res{(p0.y() - p1.y() - p0.x() * tan0 + p1.x() * tan1), 0};
@@ -17,6 +21,10 @@ vec2 intersec(const vec2& p0, float tan0, const vec2& p1, float tan1)
 	return res;
 }
 
+/**
+ * Devuelve el angulo entre dos vectores.
+ * Primero se pasa el punto de interseccion y luego los extremos.
+ */
 float angulo_puntos_ce(const vec2& c, const vec2& ex1,  const vec2& ex2, float dist_c_ex1, float dist_c_ex2)
 {
 	vec2 c_ex1(ex1 - c);

@@ -65,4 +65,8 @@ void movimiento::mover(float der, float ad, float ang)
 		mov_ = util::make_unique<bezier_mov>(util::vec2{der, ad}, ang);
 	}
 }
+
+vel_mot::vel_mot(float i, float d):
+izq(i), der(d)
+{}
 }
