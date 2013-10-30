@@ -3,5 +3,6 @@
 #include "motor.h"
 #include "sensor_luz.h"
 #include "movimiento.h"
+#include "sensor_ultrason.h"
 
-extern core::cont_comp<hw::sensor::sensor_luz, movimiento::movimiento, hw::motores> componentes;
+extern core::cont_comp<hw::sensor::sensor_luz, hw::sensor::sensores_ultrasonicos, movimiento::movimiento, hw::motores> componentes;
