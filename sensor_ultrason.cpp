@@ -11,9 +11,9 @@ struct ayuda_act
 {
 void actualizar(int i, sensores_ultrasonicos& sens)
 {
-	util::micros_t com = sens.comienzo_ping_[i];
+	util::micros_t com = sens.lects_[i].comienzo_ping_;
 	sens.esperando_[i] = false;
-	sens.tiempos_[i] = micros() - com;
+	sens.lects_[i].tiempo_respuesta_ = micros() - com;
 	detachInterrupt(sens.interrupt + i);
 }
 };
@@ -52,10 +52,10 @@ void sensores_ultrasonicos::actualizar()
 		 * No hay respuesta que esperar o ya pasó demasiado tiempo y
 		 * no llegó.
 		 */
-		if(!esperan[i] || (com - comienzo_ping_[i] > timeout))
+		if(!esperan[i] || (com - lects_[i].comienzo_ping_ > timeout))
 		{
 			emitido_ping = true;
-			comienzo_ping_[i] = com;
+			lects_[i].comienzo_ping_ = com;
 			digitalWrite(pin_in + i, HIGH);
 			esperando_[i] = true;
 		}
@@ -77,7 +77,6 @@ void sensores_ultrasonicos::actualizar()
 }
 
 sensores_ultrasonicos::sensores_ultrasonicos():
-tiempos_{0, 0, 0, 0},
 esperando_{false, false, false, false}
 {
 	for(unsigned int i = 0; i < 4; ++i)
@@ -88,35 +87,19 @@ esperando_{false, false, false, false}
 	actualizar();
 }
 
-util::micros_t sensores_ultrasonicos::tiempo(ultrason_lado il) const
+lectura_ultrason sensores_ultrasonicos::lectura(ultrason_lado il) const
 {
-	unsigned int i(static_cast<unsigned int>(il));
-	if(esperando_[i]){
-		unsigned int dif(micros() - comienzo_ping_[i]);
-		if(dif > timeout)
-		{
-			return no_data;
-		}
-		else
-		{
-			return dif;
-		}
-	} else {
-		return tiempos_[i];
-	}
+	return lects_[static_cast<unsigned int>(il)];
 }
 
-long unsigned int sensores_ultrasonicos::distancia(ultrason_lado lado) const
+long unsigned int lectura_ultrason::distancia() const
 {
-	static const float mm_p_usec(340.0 / 1E6 * 1E3); //340m/s (vel. sonido) / 1E6 (convertido a m/usec) * 1E3 (conv. a mm/usec)
-	auto res(tiempo(lado));
-	if(res == no_data)
-	{
-		return no_data;
-	} else 
-	{
-		return res * mm_p_usec;
-	}
+	return tiempo_respuesta_ * util::mm_p_usec;
+}
+
+util::micros_t lectura_ultrason::tiempo() const
+{
+	return tiempo_respuesta_;
 }
 }
 }

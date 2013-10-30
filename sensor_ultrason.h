@@ -5,6 +5,30 @@ namespace hw
 {
 namespace sensor
 {
+
+/**
+ * Clase para representar un lectura del sensor ultrasonico.
+ */
+class lectura_ultrason
+{
+friend class sensores_ultrasonicos;
+friend class ayuda_act;
+util::micros_t comienzo_ping_ = 0;
+volatile util::micros_t tiempo_respuesta_ = 0;
+public:
+	/**
+	 * Retorna la distancia en mm.
+	 */
+	unsigned long distancia() const;
+	
+	/**
+	 * Funcion que retorna el tiempo que demoró la respuesta en
+	 * llegar. Debe dividirse por 2 porque está considerada
+	 * tanto la ida como la vuelta.
+	 */
+	util::micros_t tiempo() const;
+};
+
 /**
  * Enum para representar los lados en los cuales están
  * los sensores ultrasónicos.
@@ -33,8 +57,7 @@ static const int interrupt;
 static const int pin_in;
 static const unsigned int timeout;
 static const util::micros_t no_data;
-util::micros_t comienzo_ping_[4];
-volatile util::micros_t tiempos_[4];
+lectura_ultrason lects_[4];
 volatile bool esperando_[4];
 public:
 	/**
@@ -48,17 +71,7 @@ public:
 	 */
 	void actualizar();
 	
-	/**
-	 * Funcion que retorna el tiempo que demora, o está demorando, la respuesta en
-	 * llegar a un sensor determinado. Debe dividirse por 2 porque está considerada
-	 * tanto la ida como la vuelta.
-	 */
-	util::micros_t tiempo(ultrason_lado) const;
-	
-	/**
-	 * Retorna la distancia en mm desde un sensor determinado
-	 */
-	unsigned long distancia(ultrason_lado) const;
+	lectura_ultrason lectura(ultrason_lado) const;
 };
 }
 }
