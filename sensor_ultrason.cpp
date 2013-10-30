@@ -48,7 +48,11 @@ void sensores_ultrasonicos::actualizar()
 	util::micros_t com = micros();
 	for(unsigned int i = 0; i < 4; ++i)
 	{
-		if(!esperan[i])
+		/*
+		 * No hay respuesta que esperar o ya pasó demasiado tiempo y
+		 * no llegó.
+		 */
+		if(!esperan[i] || (com - comienzo_ping_[i] > timeout))
 		{
 			emitido_ping = true;
 			comienzo_ping_[i] = com;
@@ -76,6 +80,11 @@ sensores_ultrasonicos::sensores_ultrasonicos():
 tiempos_{0, 0, 0, 0},
 esperando_{false, false, false, false}
 {
+	for(unsigned int i = 0; i < 4; ++i)
+	{
+		pinMode(pin_in + i, OUTPUT);
+	}
+	
 	actualizar();
 }
 
@@ -83,7 +92,15 @@ util::micros_t sensores_ultrasonicos::tiempo(ultrason_lado il) const
 {
 	unsigned int i(static_cast<unsigned int>(il));
 	if(esperando_[i]){
-		return micros() - comienzo_ping_[i];
+		unsigned int dif(micros() - comienzo_ping_[i]);
+		if(dif > timeout)
+		{
+			return no_data;
+		}
+		else
+		{
+			return dif;
+		}
 	} else {
 		return tiempos_[i];
 	}
