@@ -54,6 +54,11 @@ public:
 	 * tanto la ida como la vuelta.
 	 */
 	util::micros_t tiempo(ultrason_lado) const;
+	
+	/**
+	 * Retorna la distancia en mm desde un sensor determinado
+	 */
+	unsigned long distancia(ultrason_lado) const;
 };
 }
 }

@@ -105,5 +105,18 @@ util::micros_t sensores_ultrasonicos::tiempo(ultrason_lado il) const
 		return tiempos_[i];
 	}
 }
+
+long unsigned int sensores_ultrasonicos::distancia(ultrason_lado lado) const
+{
+	static const float mm_p_usec(340.0 / 1E6 * 1E3); //340m/s (vel. sonido) / 1E6 (convertido a m/usec) * 1E3 (conv. a mm/usec)
+	auto res(tiempo(lado));
+	if(res == no_data)
+	{
+		return no_data;
+	} else 
+	{
+		return res * mm_p_usec;
+	}
+}
 }
 }
